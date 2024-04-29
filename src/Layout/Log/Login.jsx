@@ -1,4 +1,4 @@
-import { Link, useLocation , useNavigate } from 'react-router-dom';
+import { Link,  useLocation , useNavigate } from 'react-router-dom';
 import login from '../../assets/images/login/login.svg'
 import { useContext } from 'react';
 import { AuthContext } from '../Auth/AuthProvider';
@@ -7,7 +7,7 @@ const Login = () => {
 
     const {loginUser } = useContext(AuthContext);
    const location = useLocation();
-//    const navigate = useNavigate()
+   const navigate = useNavigate()
     const submitForm = e => {
         e.preventDefault();
 
@@ -21,9 +21,11 @@ const Login = () => {
                 console.log(userInfo);
                 const user = {email};
                 console.log(user);
-                axios.post('http://localhost:5000/token', user)
-                .then(res => {console.log(res.data)})
-                // navigate(location?.state ? location?.state : '/' )
+                axios.post('http://localhost:5000/token', user , {withCredentials: true})
+                .then(res => {console.log(res.data),
+                
+                 navigate(location?.state ? location?.state : '/' )})
+               
                
             })
             .catch((error) => {
